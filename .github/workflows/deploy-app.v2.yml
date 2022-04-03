@@ -6,9 +6,8 @@ name: Build App
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - "demo-app/v*"
   workflow_dispatch:
 
 env:

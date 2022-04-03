@@ -3,7 +3,7 @@ name: "Deploy Demo App"
 on:
   push:
     tags:
-      - "demo-app/v1/v*.*.*"
+      - "demo-app/v1/v*"
 
 env:
   PROJECT_PATH: GithubActionsTesting/GithubActionsTesting.csproj

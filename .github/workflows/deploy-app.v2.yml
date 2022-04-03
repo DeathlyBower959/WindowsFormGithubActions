@@ -13,6 +13,7 @@ on:
 
 env:
   SOLUTION_PATH: GithubActionsTesting/GithubActionsTesting.sln
+  BUILD_PATH: GithubActionsTesting/
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,16 +39,7 @@ jobs:
     - name: Build the Solution
       run: msbuild ${{ env.SOLUTION_PATH }} /p:Configuration=Release
 
-    - uses: actions/create-release@v1
-      id: create_release
-      env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - uses: softprops/action-gh-release@v1
       with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-
-    - uses: csexton/release-asset-action@v2
-      with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          pattern: GithubActionsTesting/bin/Release/netcoreapp3.1/win-x64/publish/*.exe
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+        files: |
+          GithubActionsTesting.exe

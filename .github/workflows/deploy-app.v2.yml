@@ -6,8 +6,10 @@ name: Build App
 # events but only for the master branch
 on:
   push:
-    tags:
-      - "demo-app/v*.*.*"
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
 
 env:
   SOLUTION_PATH: GithubActionsTesting.sln

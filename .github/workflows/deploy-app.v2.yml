@@ -42,10 +42,21 @@ jobs:
     - name: Build the Solution
       run: msbuild ${{ env.SOLUTION_PATH }} /p:Configuration=Release
 
-    - name: Release Built Application 
-      uses: softprops/action-gh-release@v1
+    - name: Create Release
+      id: create-new-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        token: ${{ secrets.GH_TOKEN }}
-        tag_name: ${{ github.ref }}
-        files: |
-          ${{ env.BUILD_PATH }}
+        tag_name: v${{ github.run_number }}
+        release_name: Release V${{ github.run_number }}
+
+    - name: Upload Asset to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ${{ env.BUILD_PATH }}
+        asset_name: app-v${{ github.run_number }}.exe
+        asset_content_type: application/exe

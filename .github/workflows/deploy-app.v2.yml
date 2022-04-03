@@ -7,7 +7,7 @@ name: Build App
 on:
   push:
     tags:
-      - "demo-app/v1/v*.*.*"
+      - "demo-app/v*.*.*"
   workflow_dispatch:
 
 env:

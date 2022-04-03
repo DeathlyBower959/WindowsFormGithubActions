@@ -8,7 +8,6 @@ on:
   push:
     tags:
       - "demo-app/v*.*.*"
-  workflow_dispatch:
 
 env:
   SOLUTION_PATH: GithubActionsTesting.sln
